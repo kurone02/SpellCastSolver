@@ -2,7 +2,7 @@
 A simple program that can help you win SpellCast activity on discord
 
 ## Usage
--Open the terminal
+- Open the terminal
 - Compile the source code
 ```
 g++ main.cpp
