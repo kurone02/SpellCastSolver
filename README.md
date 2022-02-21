@@ -11,5 +11,5 @@ g++ main.cpp
 ```
 ./a.exe
 ```
-- Type the $$5\times 5$$ character matrix in to the terminal
+- Type the $5\times 5$ character matrix in to the terminal
 - The result is the longest word.
