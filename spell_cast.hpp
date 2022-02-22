@@ -10,6 +10,7 @@
 #include <vector>
 #include <fstream>
 #include "trie.hpp"
+#include "ultils.hpp"
 #define self (*this)
 using namespace std;
 
@@ -26,9 +27,11 @@ private:
     /* data */
     int num_cols, num_rows;
     vector<vector<char> > character_matrix;
-    vector<vector<string> > level;
+    vector<vector<int> > score_matrix;
+    vector<vector<bool> > double_matrix;
+    vector<vector<Answer> > level;
     Trie dict;
-    string longest_word;
+    Answer longest_word;
 
     /* Private methods */
 
@@ -51,8 +54,16 @@ public:
     char set_char(const int &row, const int &col, const char &c);
     // Get the character of a specific cell
     char get_char(const int &row, const int &col);
+    // Assign a specific cell a score
+    int set_score(const int &row, const int &col, const int &c);
+    // Get the score of a specific cell
+    int get_score(const int &row, const int &col);
+    // Assign a cell to be x2
+    bool set_double(const int &row, const int &col);
+    // Get if the cell is double word or not
+    bool get_double(const int &row, const int &col);
     // Solve SpellCast
-    string solve();
+    Answer solve();
 };
 
 /*
@@ -62,7 +73,7 @@ public:
 void SpellCast::reset_level(){
     for(auto &row: level){
         for(auto &col: row){
-            col = "";
+            col = Answer();
         }
     }
 }
@@ -74,9 +85,9 @@ bool SpellCast::check_valid_cell(const int &x, const int &y){
 void SpellCast::dfs(const Trie::PNode &current_node, const int &x, const int &y){
     if(current_node == NULL) return;
 
-    level[x][y] += get_char(x, y);
+    level[x][y].update(get_char(x, y), get_score(x, y), get_double(x, y));
 
-    if(current_node->is_leaf && longest_word.size() < level[x][y].size()){
+    if(current_node->is_leaf && longest_word.get_score() < level[x][y].get_score()){
         longest_word = level[x][y];
     }
 
@@ -86,12 +97,12 @@ void SpellCast::dfs(const Trie::PNode &current_node, const int &x, const int &y)
         if(!check_valid_cell(new_x, new_y)) continue;
         char next_char = get_char(new_x, new_y);
         if(!dict.check_next_char(current_node, next_char)) continue;
-        if(!level[new_x][new_y].empty()) continue;
+        if(!level[new_x][new_y].word.empty()) continue;
         level[new_x][new_y] = level[x][y];
         dfs(dict.next_child(current_node, next_char), new_x, new_y);
     }
 
-    level[x][y] = "";
+    level[x][y] = Answer();
 }
 
 
@@ -100,11 +111,15 @@ void SpellCast::dfs(const Trie::PNode &current_node, const int &x, const int &y)
 */
 
 SpellCast::SpellCast(int num_cols = 5, int num_rows = 5){
-    self.longest_word = "";
+    self.longest_word = Answer();
     self.num_cols = num_cols;
     self.num_rows = num_rows;
     self.character_matrix.resize(num_rows);
     for(auto &row: character_matrix) row.resize(num_cols);
+    self.score_matrix.resize(num_rows);
+    for(auto &row: score_matrix) row.resize(num_cols);
+    self.double_matrix.resize(num_rows);
+    for(auto &row: double_matrix) row.resize(num_cols);
     self.level.resize(num_cols);
     for(auto &row: level) row.resize(num_rows);
     ifstream fi("data.dic");
@@ -137,8 +152,24 @@ char SpellCast::get_char(const int &row, const int &col){
     return character_matrix[row][col];
 }
 
-string SpellCast::solve(){
-    longest_word = "";
+int SpellCast::set_score(const int &row, const int &col, const int &c){
+    return score_matrix[row][col] = c;
+}
+
+int SpellCast::get_score(const int &row, const int &col){
+    return score_matrix[row][col];
+}
+
+bool SpellCast::set_double(const int &row, const int &col){
+    return double_matrix[row][col] = true;
+}
+
+bool SpellCast::get_double(const int &row, const int &col){
+    return double_matrix[row][col];
+}
+
+Answer SpellCast::solve(){
+    longest_word = Answer();
     for(int i = 0; i < num_rows; i++){
         for(int j = 0; j < num_cols; j++){
             reset_level();
