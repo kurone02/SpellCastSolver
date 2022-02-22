@@ -12,7 +12,7 @@ g++ main.cpp
 ./a.exe
 ```
 - Type the `5 x 5` character matrix in to the terminal
-- The result is the longest word.
+- The result is the word that have highest total score.
 
 ## TODO
 - Add optimize gems
