@@ -15,7 +15,5 @@ g++ main.cpp
 - The result is the longest word.
 
 ## TODO
-- Incorporate letter points
-- Add Double/Triple letters and Double words
 - Add optimize gems
 - Add python script to scan the game
