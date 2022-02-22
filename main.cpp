@@ -51,16 +51,13 @@ int main(){
 
 
 /*
-inrlo
-yoidb
-tahri
-belee
-qfges
-
-1 2 2 3 1
-4 1 1 3 4
-2 1 4 4 1
-4 1 3 1 1
-8 5 3 1 2
+iipbo
+ldwwx
+gniee
+uettn
+agqoo
+5 2
+3 1
+0 0
 
 */

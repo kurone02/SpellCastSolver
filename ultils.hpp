@@ -47,8 +47,8 @@ void Answer::update(const char &c, const int &score, const bool &bonus){
 
 int Answer::get_score(){
     int res = total_score;
-    if(word.size() >= 7) res += 20;
     if(is_times_two) res <<= 1;
+    if(word.size() >= 7) res += 20;
     return res;
 }
 
