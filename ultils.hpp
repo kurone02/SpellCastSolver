@@ -8,6 +8,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <string>
+#include <fstream>
 using namespace std;
 
 struct Answer{
@@ -50,5 +51,31 @@ int Answer::get_score(){
     if(is_times_two) res <<= 1;
     return res;
 }
+
+
+struct LetterScore{
+private:
+    static const int ALPHABET_SIZE = 26;
+    int scores[ALPHABET_SIZE];
+public:
+    LetterScore();
+    // Get the score of a specific character
+    int get_score(const char &c);
+};
+
+LetterScore::LetterScore(){
+    ifstream fi("letter_score.txt");
+    char c;
+    while(fi >> c){
+        int score; fi >> score;
+        scores[c - 'a'] = score;
+    }
+}
+
+int LetterScore::get_score(const char &c){
+    return scores[c - 'a'];
+}
+
+
 
 #endif

@@ -85,8 +85,10 @@ bool SpellCast::check_valid_cell(const int &x, const int &y){
 void SpellCast::dfs(const Trie::PNode &current_node, const int &x, const int &y){
     if(current_node == NULL) return;
 
+    // Update current answer
     level[x][y].update(get_char(x, y), get_score(x, y), get_double(x, y));
 
+    // Update optimal answer
     if(current_node->is_leaf && longest_word.get_score() < level[x][y].get_score()){
         longest_word = level[x][y];
     }
