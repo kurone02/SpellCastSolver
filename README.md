@@ -15,7 +15,7 @@ g++ main.cpp
 - The result is the word that have highest total score.
 
 ## TODO
-- Add optimize gems
+- ~Add optimize gems~ (added 2022/02/26)
 - Add python script to scan the game
 
 ## Playing solo
