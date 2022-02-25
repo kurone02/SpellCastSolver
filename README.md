@@ -17,3 +17,11 @@ g++ main.cpp
 ## TODO
 - Add optimize gems
 - Add python script to scan the game
+
+## Update
+- Added a closer dictionary to SpellCast from SCOWL.
+
+## Note
+- The dictionary used by SpellCast might ignore all words that have uppercase character since `KOREA` and `JUNE` are words in the game.
+- From the info in the game, the dictionary is from wordlist-en_US-large, Kevin Atkinson, coppyrighted 2000-2016
+
